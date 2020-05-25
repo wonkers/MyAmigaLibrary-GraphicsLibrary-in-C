@@ -1,7 +1,3 @@
-
-/*#include <proto/all.h>
-#include <stdlib.h>*/
-
 /*for amiga defined types -UWORD, UBYTE etc*/
 #include "exec/types.h"
 
