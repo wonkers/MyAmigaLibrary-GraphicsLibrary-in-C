@@ -25,8 +25,10 @@
  used to display any debugging windows showing values or whatever*/
 #define DEBUG 1
 
-struct Bob bob, facebob;
-struct VSprite vsbob, vsface;
+struct Bob bob;
+struct VSprite vsbob;
+
+/*not used at the moment - for accessing hardware directly*/
 extern struct Custom far custom;
 
 char *numbers[10] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
@@ -47,7 +49,6 @@ int main()
 
 	char *LeftMouse = (char*)0xBFE001;
 
-	/*y 6, */
 	CreateView(WIDTH, HEIGHT, DEPTH);
 	
 	/*Load bitmap with cookie sprites/bobs*/
