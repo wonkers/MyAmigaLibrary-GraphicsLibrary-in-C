@@ -43,10 +43,6 @@ int main()
 	IMAGE Cookie;
 	IMAGE CookieFace;
 	char buf[6];
-	BYTE mousey;
-	BYTE mousex;
-	BYTE dif;
-
 	char *LeftMouse = (char*)0xBFE001;
 
 	CreateView(WIDTH, HEIGHT, DEPTH);
@@ -59,7 +55,7 @@ int main()
 	LoadBitMap("shared:cookieface", &BitMap);
 	CookieFace = GetImage(&BitMap, 0, 64, 64, 128);
 	
-	/*load screen.bitmap from IFF file direct to screen.bitmap*/
+	/*load from IFF file direct to screen.bitmap*/
 	LoadBitMap("shared:template", &Screen.bitMap[0]);
 	LoadBitMap("shared:template", &Screen.bitMap[1]);
 	
@@ -111,7 +107,8 @@ int main()
 		{
 			Move(&Screen.rastPort, 240, 10);
 			Text(&Screen.rastPort, "Debugging", strlen("Debugging"));
-			/*print values to monitor*/
+			
+			/*print values to debugging monitor*/
 			Move(&Screen.rastPort, 240, 20);
 			Text(&Screen.rastPort, "X : ", strlen("X : "));
 			Move(&Screen.rastPort, 280, 20);
