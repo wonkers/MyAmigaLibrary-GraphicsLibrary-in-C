@@ -31,8 +31,6 @@ struct VSprite vsbob;
 /*not used at the moment - for accessing hardware directly*/
 extern struct Custom far custom;
 
-char *numbers[10] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-
 /*used to make sure image data is correct*/
 VOID TestDraw(IMAGE image);
 
