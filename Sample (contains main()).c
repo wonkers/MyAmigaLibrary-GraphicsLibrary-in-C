@@ -120,6 +120,11 @@ int main()
 		SortGList(&Screen.rastPort);
 		DrawGList(&Screen.rastPort, &Screen.viewPort);
 		
+		/*need to implement something like this for proper dbuff*/
+		Screen.view->LOFCprList = LOF[0][toggle];
+		Screen.view->SHFCprLis = SHF[0][toggle];
+		LoadView(Screen.view);
+		
 		/*wait until the current scanline reaches the top of screen*/
 		/*removing this speeds up drawing alot, but may miss drawing bobs/sprites*/
 		WaitTOF();
