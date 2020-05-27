@@ -59,15 +59,18 @@ void CreateView(UWORD Width, UWORD Height, UBYTE Depth)
 	CreateRasInfo();
 	CreateViewPort();
 	AllocateBitMapMemory();
+	
+	/*calculate copper lists*/
 	MakeVPort(&Screen.view, &Screen.viewPort);
 	
+	/*Merge Viewport lists*/
 	MrgCop(&Screen.view);
 	
-	/*store lists for double buffering*/
+	/*store lists for dual playfield and double buffering*/
 	Screen.Copper[LOF][0] = Screen.view.LOFCprList;
 	Screen.Copper[SHF][0] = Screen.view.SHFCprList;
 	
-	/*prepare rasinfo for double buffer*/
+	/*prepare rasinfo for dual playfield linking, double buffer*/
 	Screen.viewPort.RasInfo = &Screen.rasInfo[1];
 	Screen.rasInfo[1].Next = &Screen.rasInfo[0];
 	
@@ -103,18 +106,25 @@ void CreateViewPort()
 {
 	UBYTE colours = 2;
 	UBYTE i;
+	
+	/*Dual Playfield linking*/
 	Screen.viewPort.RasInfo = &Screen.rasInfo[0];
 	Screen.rasInfo[0].Next = &Screen.rasInfo[1];
+	
 	Screen.viewPort.DWidth = Screen.Width;
 	Screen.viewPort.DHeight = Screen.Height;
 	Screen.viewPort.DxOffset = 0;
 	Screen.viewPort.DyOffset = 0;
+	
+	/*Need to set Modes to DUALPF |PFBA - for Dual Playfield*/
 	Screen.viewPort.Modes = 0;
+	
 	if(Screen.Width > 320)
 		Screen.viewPort.Modes |= HIRES;
 	if(Screen.Height > 256)
 		Screen.viewPort.Modes |= LACE;
 	
+	/*enable sprites by defaut*/
 	Screen.viewPort.Modes |= SPRITES;
 	
 	for(i = 0; i < Screen.Depth-1; i++)
