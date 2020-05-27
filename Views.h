@@ -1,7 +1,5 @@
 #define VIEWS
 
-#define LOF 0
-#define SHF 1
 
 /*Double Buffered Screen*/
 typedef struct ScreenView
@@ -11,16 +9,13 @@ typedef struct ScreenView
 	int Depth;
 	struct View view;
 	struct ViewPort viewPort;
-	
-	/*2 RasInfos are only required for Dual Playfield*/
 	struct RasInfo rasInfo[2];
-	
-	/*2 Bitmaps are only required for Double Buffering/Dual Playfields*/
 	struct BitMap bitMap[2];
-	
-	struct RastPort rastPort;
+	struct RastPort rastPort[2];
 	struct View *oldView;
-	struct CprList *Copper[2][2];
+	
+	struct cprlist *LOF[2];
+	struct cprlist *SHF[2];
 }SCREENVIEW;
 
 extern SCREENVIEW Screen;
@@ -31,5 +26,6 @@ void CreateRasInfo();
 void CreateViewPort();
 void AllocateBitMapMemory();
 void FreeCopperMemory();
+void MakeDisplay(UBYTE toggle);
 void CloseGfxLibrary();
 
