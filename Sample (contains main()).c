@@ -122,9 +122,9 @@ int main()
 		
 		/*need to implement something like this for proper dbuff*/
 		
-		/*Screen.view->LOFCprList = Screen.Copper[LOF][toggle];
-		Screen.view->SHFCprList = Screen.Copper[SHF][toggle];
-		LoadView(Screen.view);*/
+		/*Screen.view.LOFCprList = Screen.Copper[LOF][toggle];
+		Screen.view.SHFCprList = Screen.Copper[SHF][toggle];
+		LoadView(&Screen.view);*/
 		
 		/*wait until the current scanline reaches the top of screen*/
 		/*removing this speeds up drawing alot, but may miss drawing bobs/sprites*/
