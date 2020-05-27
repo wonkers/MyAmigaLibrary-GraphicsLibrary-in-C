@@ -121,15 +121,16 @@ int main()
 		DrawGList(&Screen.rastPort, &Screen.viewPort);
 		
 		/*need to implement something like this for proper dbuff*/
-		Screen.view->LOFCprList = LOF[0][toggle];
-		Screen.view->SHFCprLis = SHF[0][toggle];
-		LoadView(Screen.view);
+		
+		/*Screen.view->LOFCprList = Screen.Copper[0][toggle];
+		Screen.view->SHFCprLis = Screen.Copper[0][toggle];
+		LoadView(Screen.view);*/
 		
 		/*wait until the current scanline reaches the top of screen*/
 		/*removing this speeds up drawing alot, but may miss drawing bobs/sprites*/
 		WaitTOF();
 
-		/*swap bitmaps*/
+		/*swap bitmaps - this isn't working as it's supposed to, BUT is keeping the screen clean*/
 		Screen.viewPort.RasInfo[0].BitMap = &Screen.bitMap[toggle];
 		Screen.rastPort.BitMap = &Screen.bitMap[toggle];
 		
