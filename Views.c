@@ -154,13 +154,15 @@ void FreeCopperMemory()
 {
 	UBYTE i, j;
 	FreeColorMap(Screen.viewPort.ColorMap);
+	
+	FreeCprList(Screen.LOF[0]);
+	FreeCprList(Screen.SHF[0]);
+	FreeCprList(Screen.LOF[1]);
+	FreeCprList(Screen.SHF[1]);
+	
 	FreeVPortCopLists(&Screen.viewPort);
 	
-	if(Screen.view.LOFCprList != 0)
-		FreeCprList(Screen.view.LOFCprList);
-	if(Screen.view.SHFCprList != 0)
-		FreeCprList(Screen.view.SHFCprList);
-	
+
 	for(j = 0; j < 2; j++)
 	{
 		for(i = 0; i < Screen.Depth; i++)
