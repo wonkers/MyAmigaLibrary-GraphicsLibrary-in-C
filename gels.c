@@ -39,6 +39,10 @@ VOID CreateGELS(struct RastPort * rastPort, int width, int height)
 
 }
 
+VOID SetGelsInfo(struct RastPort * RastPort)
+{
+	RastPort->GelsInfo = &GelsInfo;
+}
 
 VOID CreateBob(struct VSprite *vsbob, struct Bob *bob, int x , int y, IMAGE *image)
 {

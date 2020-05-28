@@ -73,6 +73,9 @@ int main()
 	/*Create GELS structure and initialise*/
 	CreateGELS(&Screen.rastPort[0], WIDTH, HEIGHT);
 	
+	/*set the 2nd rastport's GelsInfo - uses the same as 1st rastport*/
+	SetGelsInfo(&Screen.rastPort[1]);
+	
 	/*create cookie character*/
 	CreateBob(&vsbob, &bob, 10, 10, &Cookie);
 	SetCollisionBob(&vsbob, &bob, &Cookie);
@@ -112,12 +115,11 @@ int main()
 		/*move bob*/
 		vsbob.X += 1;
 		
-		/*draw to current bitmap*/
-		SortGList(&Screen.rastPort);
-		DrawGList(&Screen.rastPort, &Screen.viewPort);
+		/*draw to RastPort*/
+		SortGList(&Screen.rastPort[toggle]);
+		DrawGList(&Screen.rastPort[toggle], &Screen.viewPort);
 		
-		Screen.viewPort.RasInfo->BitMap = &Screen.bitMap[toggle];
-		Screen.rastPort[0].BitMap = &Screen.bitMap[toggle];
+		/*load new view*/
 		MakeDisplay(toggle);
 		
 		/*wait until the current scanline reaches the top of screen*/

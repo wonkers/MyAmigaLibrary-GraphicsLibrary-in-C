@@ -19,3 +19,4 @@ VOID CreateBob(struct VSprite *vsbob, struct Bob * bob, int x, int y, IMAGE *ima
 VOID SetCollisionBob(struct VSprite *vsbob, struct Bob *bob, IMAGE *image);
 VOID SetDoubleBufferBob(struct VSprite *vsbob, struct Bob *bob, IMAGE *image);
 VOID DeleteBob(struct VSprite *vsbob, struct Bob *bob);
+VOID SetGelsInfo(struct RastPort *RastPort);
