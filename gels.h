@@ -20,3 +20,8 @@ VOID SetCollisionBob(struct VSprite *vsbob, struct Bob *bob, IMAGE *image);
 VOID SetDoubleBufferBob(struct VSprite *vsbob, struct Bob *bob, IMAGE *image);
 VOID DeleteBob(struct VSprite *vsbob, struct Bob *bob);
 VOID SetGelsInfo(struct RastPort *RastPort);
+
+VOID CreateVSprite(struct VSprite *vspr, int x, int y, IMAGE *image, UWORD *colours);
+VOID SetCollisionVSprite(struct VSprite *vspr, IMAGE *image);
+VOID DeleteVSprite(struct VSprite *vspr);
+VOID BorderController(struct VSprite, BYTE Border);

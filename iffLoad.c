@@ -117,9 +117,9 @@ IMAGE GetImage(struct BitMap *BitMap, UWORD x1, UWORD y1, UWORD x2, UWORD y2)
 		{
 			for(x = 0; x < width; x++)
 			{
-				*myHelper |= BitMap->Planes[plane][y * BitMap->BytesPerRow + xOffset + (x * sizeof(UWORD))];
+				*myHelper |= BitMap->Planes[plane][y * BitMap->BytesPerRow + xOffset + (x*2)];
 				*myHelper = *myHelper << 8;
-				*myHelper |= BitMap->Planes[plane][y * BitMap->BytesPerRow + xOffset + 1 + (x * sizeof(UWORD))];
+				*myHelper |= BitMap->Planes[plane][y * BitMap->BytesPerRow + xOffset + 1 + (x*2)];
 				myHelper++;
 			}
 		}

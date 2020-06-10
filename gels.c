@@ -16,7 +16,6 @@ struct VSprite Start, End;
 WORD *LastColors[8] = {0,0,0,0,0,0,0,0};
 WORD NextLines[8] = {0,0,0,0,0,0,0,0};
 struct collTable collTable;
-UWORD Border[2];
 
 VOID CreateGELS(struct RastPort * rastPort, int width, int height)
 {
@@ -25,7 +24,7 @@ VOID CreateGELS(struct RastPort * rastPort, int width, int height)
 	BltClear(&GelsInfo, sizeof(struct GelsInfo), 0);
 	BltClear(&collTable, sizeof(struct collTable), 0);
 	
-	GelsInfo.sprRsrvd = 0xfc;
+	GelsInfo.sprRsrvd = 0x80;
 	GelsInfo.nextLine = NextLines;
 	GelsInfo.lastColor = LastColors;
 	GelsInfo.collHandler = &collTable;
@@ -37,6 +36,7 @@ VOID CreateGELS(struct RastPort * rastPort, int width, int height)
 	InitGels(&Start, &End, &GelsInfo);
 	rastPort->GelsInfo = &GelsInfo;
 
+	SetCollision(0, BorderController, &GelsInfo);
 }
 
 VOID SetGelsInfo(struct RastPort * RastPort)
@@ -68,9 +68,8 @@ VOID CreateBob(struct VSprite *vsbob, struct Bob *bob, int x , int y, IMAGE *ima
 	bob->Flags = 0;
 	bob->BobVSprite = vsbob;
 	vsbob->VSBob = bob;
-	
-
 }
+
 VOID SetCollisionBob(struct VSprite *vsbob, struct Bob *bob, IMAGE *image)
 {
 	WORD *Borderline = (WORD*)AllocMem(sizeof(WORD) * (image->Width/16), MEMF_CLEAR|MEMF_CHIP);
@@ -97,10 +96,10 @@ VOID SetDoubleBufferBob(struct VSprite *vsbob, struct Bob *bob, IMAGE *image)
 }
 VOID DeleteBob(struct VSprite *vsbob, struct Bob *bob)
 {
-	if(vsbob->ImageData !=0)
+	/*if(vsbob->ImageData !=0)
 	{
 		FreeMem(vsbob->ImageData, RASSIZE(vsbob->Width*16, vsbob->Height)*vsbob->Depth);
-	}
+	}*/
 	
 	if(vsbob->CollMask !=0)
 	{
@@ -127,4 +126,54 @@ VOID DeleteBob(struct VSprite *vsbob, struct Bob *bob)
 		FreeMem(bob->DBuffer, sizeof(struct DBufPacket));
 	}
 	
+}
+
+VOID CreateVSprite(struct VSprite *vspr, int x, int y, IMAGE *image, UWORD *colours)
+{
+	BltClear(vspr, sizeof(struct VSprite), 0);
+	vspr->CollMask = 0;
+	vspr->BorderLine = 0;
+	
+	vspr->Width = 1;
+	vspr->Height = image->Height;
+	vspr->Flags = VSPRITE;
+	vspr->Depth = 2;
+	vspr->ImageData = image->ImageData;
+	vspr->SprColors = colours;
+	vspr->X = x;
+	vspr->Y = y;
+	
+	vspr->MeMask = 0x0;
+	vspr->HitMask = 0x0;
+}
+VOID SetCollisionVSprite(struct VSprite *vspr, IMAGE *image)
+{
+	WORD *Borderline = (WORD*)AllocMem(sizeof(WORD) * (image->Width/16), MEMF_CLEAR|MEMF_CHIP);
+	WORD *CollisionMask = (WORD*)AllocMem(RASSIZE(image->Width, image->Height), MEMF_CLEAR|MEMF_CHIP);
+
+	vspr->CollMask = CollisionMask;
+	vspr->BorderLine = Borderline;
+	
+	InitMasks(vspr);
+}
+VOID DeleteVSprite(struct VSprite *vspr)
+{
+	if(vspr->ImageData !=0)
+	{
+		FreeMem(vspr->ImageData, RASSIZE(vspr->Width*16, vspr->Height)*vspr->Depth);
+	}
+	
+	if(vspr->CollMask !=0)
+	{
+		FreeMem(vspr->CollMask, RASSIZE(vspr->Width *16, vspr->Height));
+	}
+	
+	if(vspr->BorderLine != 0)
+	{
+		FreeMem(vspr->BorderLine, vspr->Width * sizeof(UWORD));
+	}
+}
+VOID BorderController(struct VSprite vsprite, BYTE Border)
+{
+	/*do nothing at the moment*/
 }
