@@ -1,6 +1,7 @@
 #include "fontGfx.h"
-
-UBYTE characters[96][8];
+#define MAX_CHARS 96
+#define WIDTHHEIGHT 8
+UBYTE characters[MAX_CHARS][WIDTHHEIGHT];
 
 void SetFontGraphicData(struct RastPort *rastport)
 {
@@ -10,9 +11,9 @@ void SetFontGraphicData(struct RastPort *rastport)
     font = rastport->Font;
 
     /*get font characters*/
-	for(j = 0; j < 96/sizeof(ULONG); j++)
+	for(j = 0; j < MAX_CHARS/sizeof(ULONG); j++)
 	{
-		for(i = 0; i < 8; i++)
+		for(i = 0; i < WIDTHHEIGHT; i++)
 		{
 			value = (ULONG)((font->tf_CharData[ j + (font->tf_Modulo/sizeof(ULONG))*i ]));
 			characters[j*sizeof(ULONG)][i] = (value & 0xff000000)>>24;
