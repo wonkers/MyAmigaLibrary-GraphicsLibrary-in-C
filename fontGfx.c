@@ -14,7 +14,7 @@ void SetFontGraphicData(struct RastPort *rastport)
 	{
 		for(i = 0; i < 8; i++)
 		{
-			value = (ULONG)((font->tf_CharData[ j + (192/4)*i ]));
+			value = (ULONG)((font->tf_CharData[ j + (font->tf_Modulo/4)*i ]));
 			characters[j*4][i] = (value & 0xff000000)>>24;
 			characters[j*4+1][i] = (value & 0x00ff0000)>>16;
 			characters[j*4+2][i] = (value & 0x0000ff00)>>8;
