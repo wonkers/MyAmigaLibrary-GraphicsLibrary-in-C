@@ -42,7 +42,7 @@ short CreateDualPlayField()
 		{
 			if((BitMaps[i].Planes[j] = (PLANEPTR)AllocRaster(WIDTH,HEIGHT)) == NULL)
 			{
-                FreeDPFBitMaps();
+                		FreeDPFBitMaps();
 				return FALSE;
 			} 
 			BltClear((UBYTE *)BitMaps[i].Planes[j], RASSIZE(WIDTH, HEIGHT), 0);
