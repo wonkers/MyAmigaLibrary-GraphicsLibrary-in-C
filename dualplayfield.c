@@ -1,6 +1,4 @@
-#ifndef DUALPLAYFIELD_H
 #include "dualplayfield.h"
-#endif
 
 struct View View;
 struct ViewPort ViewPort;
